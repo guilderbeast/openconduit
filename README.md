@@ -298,7 +298,7 @@ Star the repo. Share it. Open an issue. Submit a PR.
 ## Links
 
 - 🌐 Website: [openconduit.art](https://openconduit.art)
-- 💬 Discussions: [GitHub Discussions](https://github.com/guilderbeast/flamenco-win11-blender5-setup/discussions)
+- 💬 Discussions: [GitHub Discussions](https://github.com/guilderbeast/openconduit/discussions)
 - 🐦 Twitter: [@openconduit](https://twitter.com/openconduit)
 
 ---
