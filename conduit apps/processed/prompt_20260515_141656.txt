@@ -1,1 +1,0 @@
-give me 5 random cubes in the viewport

@@ -1,1 +1,0 @@
-Create a Star Wars style crate at the cursor.

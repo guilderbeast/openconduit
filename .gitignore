@@ -1,2 +1,8 @@
 *.mp4 
 *.exe 
+*.sqlite 
+conduit apps/processed/ 
+pip/ 
+python/ 
+streamlit/ 
+streamlit)/ 

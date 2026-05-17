@@ -1,1 +1,0 @@
-Create a 3D crate that is 2 meters wide and name it StarWarsCrate.
