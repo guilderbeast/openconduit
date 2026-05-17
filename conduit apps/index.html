@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conduit — everyone. by everyone. for everyone.</title>
+<meta name="description" content="Conduit is an open source platform born from one person's journey through depression, anxiety and ADHD — and a belief that technology should give every human being a voice. Free. Always.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --flame: #E8521A;
+    --amber: #F5A623;
+    --earth: #8B4513;
+    --cream: #FFF8F2;
+    --cream-dark: #F5EAD8;
+    --charcoal: #1A1208;
+    --warm-mid: #8B6E52;
+    --warm-light: #C4A882;
+    --warm-border: #E8D5C0;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--charcoal); overflow-x: hidden; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 3rem; background: rgba(255,248,242,0.92); backdrop-filter: blur(12px); border-bottom: 0.5px solid var(--warm-border); }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; letter-spacing: 0.15em; color: var(--charcoal); text-decoration: none; }
+  .nav-logo span { color: var(--flame); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; flex-wrap: wrap; }
+  .nav-links a { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--warm-mid); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--flame); }
+  .nav-cta { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.6rem 1.5rem; background: var(--flame); color: white; text-decoration: none; transition: background 0.2s, transform 0.2s; white-space: nowrap; }
+  .nav-cta:hover { background: var(--earth); transform: translateY(-1px); }
+
+  /* HERO */
+  .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 8rem 2rem 5rem; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -20%; left: -10%; width: 60%; height: 80%; background: radial-gradient(ellipse, rgba(232,82,26,0.06) 0%, transparent 70%); pointer-events: none; }
+  .hero::after { content: ''; position: absolute; bottom: -10%; right: -5%; width: 50%; height: 60%; background: radial-gradient(ellipse, rgba(245,166,35,0.08) 0%, transparent 70%); pointer-events: none; }
+  .logo-mark { width: 80px; height: 80px; margin: 0 auto 2rem; opacity: 0; animation: fadeUp 0.8s 0.1s forwards; }
+  .hero-eyebrow { font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--flame); margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s 0.2s forwards; }
+  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3.5rem, 9vw, 8rem); font-weight: 300; line-height: 1.0; color: var(--charcoal); margin-bottom: 1rem; opacity: 0; animation: fadeUp 0.8s 0.4s forwards; }
+  .hero-title em { font-style: italic; color: var(--flame); }
+  .hero-tagline { font-family: 'Cormorant Garamond', serif; font-size: clamp(1rem, 2.5vw, 1.4rem); font-weight: 300; font-style: italic; color: var(--warm-mid); letter-spacing: 0.08em; margin-bottom: 2rem; opacity: 0; animation: fadeUp 0.8s 0.6s forwards; }
+  .hero-principle { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--warm-light); margin-bottom: 3rem; opacity: 0; animation: fadeUp 0.8s 0.7s forwards; }
+  .hero-principle strong { color: var(--flame); font-weight: 500; }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; opacity: 0; animation: fadeUp 0.8s 0.9s forwards; }
+  .scroll-indicator { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; opacity: 0; animation: fadeUp 0.8s 1.2s forwards; }
+  .scroll-indicator span { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--warm-light); }
+  .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--flame), transparent); animation: scrollPulse 2s infinite; }
+
+  /* BUTTONS */
+  .btn-primary { padding: 1rem 2.5rem; background: var(--flame); color: white; text-decoration: none; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; transition: all 0.25s; border: 2px solid var(--flame); display: inline-block; }
+  .btn-primary:hover { background: var(--earth); border-color: var(--earth); transform: translateY(-2px); }
+  .btn-secondary { padding: 1rem 2.5rem; background: transparent; color: var(--charcoal); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; border: 2px solid var(--warm-border); transition: all 0.25s; display: inline-block; }
+  .btn-secondary:hover { border-color: var(--flame); color: var(--flame); transform: translateY(-2px); }
+  .btn-white { padding: 1rem 2.5rem; background: white; color: var(--flame); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; border: 2px solid white; transition: all 0.25s; font-family: 'Jost', sans-serif; display: inline-block; }
+  .btn-white:hover { background: transparent; color: white; transform: translateY(-2px); }
+  .btn-ghost-white { padding: 1rem 2.5rem; background: transparent; color: white; text-decoration: none; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; border: 2px solid rgba(255,255,255,0.4); transition: all 0.25s; font-family: 'Jost', sans-serif; display: inline-block; }
+  .btn-ghost-white:hover { border-color: white; transform: translateY(-2px); }
+
+  /* SECTIONS */
+  .section { padding: 7rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .section-label { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--flame); margin-bottom: 1.5rem; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 300; line-height: 1.15; color: var(--charcoal); margin-bottom: 2rem; }
+  .section-title em { font-style: italic; color: var(--flame); }
+  .section-body { font-size: 1.05rem; line-height: 1.95; color: var(--warm-mid); max-width: 720px; margin-bottom: 1.5rem; }
+  .section-body strong { color: var(--charcoal); font-weight: 500; }
+  .section-body a { color: var(--flame); text-decoration: none; border-bottom: 1px solid rgba(232,82,26,0.3); transition: border-color 0.2s; }
+  .section-body a:hover { border-color: var(--flame); }
+  .flame-line { width: 60px; height: 2px; background: var(--flame); margin: 0 0 2rem; }
+  .flame-line-center { margin: 0 auto 2rem; }
+
+  /* ORIGIN */
+  .origin { background: var(--cream-dark); padding: 7rem 2rem; }
+  .origin-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .origin-quote { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.4rem, 3vw, 2.2rem); font-weight: 300; font-style: italic; line-height: 1.5; color: var(--charcoal); border-left: 2px solid var(--flame); padding-left: 2rem; margin-bottom: 2rem; }
+  .origin-attribution { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--warm-light); padding-left: 2rem; }
+  .origin-body { font-size: 1rem; line-height: 1.95; color: var(--warm-mid); }
+  .origin-body p { margin-bottom: 1.5rem; }
+  .origin-body strong { color: var(--charcoal); font-weight: 500; }
+
+  /* MH CALLOUT */
+  .mh-callout { background: var(--charcoal); border-left: 3px solid var(--flame); padding: 2rem 2.5rem; margin: 2.5rem 0; max-width: 720px; }
+  .mh-callout p { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-style: italic; font-weight: 300; color: var(--cream); line-height: 1.7; }
+  .mh-callout span { display: block; margin-top: 1rem; font-family: 'Jost', sans-serif; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--flame); }
+
+  /* ANIMALS */
+  .animals { background: var(--cream-dark); padding: 5rem 2rem; }
+  .animals-inner { max-width: 1100px; margin: 0 auto; }
+  .animals-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .animal-card { padding: 2rem 1.5rem; background: var(--cream); border: 0.5px solid var(--warm-border); text-align: center; transition: transform 0.2s, border-color 0.2s; }
+  .animal-card:hover { transform: translateY(-3px); border-color: var(--flame); }
+  .animal-emoji { font-size: 2.5rem; margin-bottom: 0.75rem; }
+  .animal-name { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--charcoal); margin-bottom: 0.25rem; }
+  .animal-type { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--warm-light); }
+
+  /* PILLARS */
+  .pillars { background: var(--charcoal); padding: 7rem 2rem; }
+  .pillars-inner { max-width: 1100px; margin: 0 auto; }
+  .pillars-label { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amber); margin-bottom: 1.5rem; }
+  .pillars-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 300; color: var(--cream); margin-bottom: 4rem; line-height: 1.15; }
+  .pillars-title em { font-style: italic; color: var(--amber); }
+  .pillars-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2px; }
+  .pillar { padding: 3rem 2.5rem; background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.08); transition: background 0.3s; }
+  .pillar:hover { background: rgba(255,255,255,0.06); }
+  .pillar-number { font-family: 'Cormorant Garamond', serif; font-size: 4rem; font-weight: 300; color: var(--flame); opacity: 0.4; line-height: 1; margin-bottom: 1.5rem; }
+  .pillar-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 400; color: var(--cream); margin-bottom: 1rem; line-height: 1.2; }
+  .pillar-body { font-size: 0.9rem; line-height: 1.8; color: rgba(255,248,242,0.5); }
+  .pillar-tag { display: inline-block; margin-top: 1.5rem; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); border: 0.5px solid rgba(245,166,35,0.3); padding: 0.3rem 0.8rem; }
+
+  /* STACK */
+  .stack-section { padding: 7rem 2rem; background: var(--cream-dark); }
+  .stack-inner { max-width: 1100px; margin: 0 auto; }
+  .stack-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .stack-item { padding: 2rem 1.5rem; background: var(--cream); border: 0.5px solid var(--warm-border); transition: transform 0.2s, border-color 0.2s; }
+  .stack-item:hover { transform: translateY(-3px); border-color: var(--flame); }
+  .stack-icon { font-size: 1.5rem; margin-bottom: 1rem; }
+  .stack-name { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--charcoal); margin-bottom: 0.5rem; }
+  .stack-desc { font-size: 0.82rem; line-height: 1.6; color: var(--warm-mid); margin-bottom: 0.5rem; }
+  .stack-link { font-size: 0.7rem; color: var(--flame); text-decoration: none; letter-spacing: 0.1em; border-bottom: 1px solid rgba(232,82,26,0.3); transition: border-color 0.2s; }
+  .stack-link:hover { border-color: var(--flame); }
+  .stack-badge { display: inline-block; margin-top: 0.75rem; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--flame); border: 0.5px solid var(--flame); padding: 0.2rem 0.6rem; }
+
+  /* HOW TO */
+  .howto { padding: 7rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .steps { margin-top: 3rem; }
+  .step { display: grid; grid-template-columns: 80px 1fr; gap: 2rem; margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 0.5px solid var(--warm-border); }
+  .step:last-child { border-bottom: none; }
+  .step-number { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: var(--flame); opacity: 0.5; line-height: 1; padding-top: 0.25rem; }
+  .step-content h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 400; color: var(--charcoal); margin-bottom: 0.75rem; }
+  .step-content p { font-size: 0.95rem; line-height: 1.8; color: var(--warm-mid); margin-bottom: 0.75rem; }
+  .step-content a { color: var(--flame); text-decoration: none; border-bottom: 1px solid rgba(232,82,26,0.3); }
+  .step-content a:hover { border-color: var(--flame); }
+  .step-content code { background: var(--cream-dark); padding: 0.2rem 0.5rem; font-size: 0.85rem; color: var(--charcoal); border: 0.5px solid var(--warm-border); font-family: monospace; }
+
+  /* FAQ */
+  .faq-section { background: var(--cream-dark); padding: 7rem 2rem; }
+  .faq-inner { max-width: 1100px; margin: 0 auto; }
+  .faq-grid { margin-top: 3rem; }
+  .faq-item { border-bottom: 0.5px solid var(--warm-border); }
+  .faq-question { width: 100%; background: none; border: none; text-align: left; padding: 1.75rem 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .faq-question h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 400; color: var(--charcoal); line-height: 1.3; }
+  .faq-icon { color: var(--flame); font-size: 1.2rem; flex-shrink: 0; transition: transform 0.2s; }
+  .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+  .faq-answer.open { max-height: 500px; }
+  .faq-icon.open { transform: rotate(45deg); }
+  .faq-answer p { font-size: 0.95rem; line-height: 1.85; color: var(--warm-mid); padding-bottom: 1.75rem; }
+  .faq-answer a { color: var(--flame); text-decoration: none; border-bottom: 1px solid rgba(232,82,26,0.3); }
+  .faq-answer strong { color: var(--charcoal); font-weight: 500; }
+
+  /* LEGACY */
+  .legacy { padding: 7rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .legacy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .legacy-stat { text-align: center; padding: 2rem; border: 0.5px solid var(--warm-border); margin-bottom: 1.5rem; }
+  .legacy-stat-number { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 300; color: var(--flame); line-height: 1; margin-bottom: 0.5rem; }
+  .legacy-stat-label { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--warm-mid); }
+
+  /* MENTAL HEALTH */
+  .mh-section { background: var(--charcoal); padding: 7rem 2rem; }
+  .mh-inner { max-width: 1100px; margin: 0 auto; }
+  .mh-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 300; color: var(--cream); margin-bottom: 1.5rem; line-height: 1.2; }
+  .mh-title em { font-style: italic; color: var(--amber); }
+  .mh-body { font-size: 1rem; line-height: 1.9; color: rgba(255,248,242,0.6); max-width: 720px; margin-bottom: 3rem; }
+  .mh-body strong { color: var(--cream); font-weight: 500; }
+  .mh-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+  .mh-card { padding: 2rem; border: 0.5px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); }
+  .mh-card-country { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.5rem; }
+  .mh-card-name { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--cream); margin-bottom: 0.5rem; }
+  .mh-card-number { font-size: 1.4rem; font-weight: 500; color: var(--flame); margin-bottom: 0.5rem; letter-spacing: 0.05em; }
+  .mh-card-desc { font-size: 0.8rem; line-height: 1.6; color: rgba(255,248,242,0.4); }
+  .mh-card a { color: var(--amber); text-decoration: none; border-bottom: 1px solid rgba(245,166,35,0.3); font-size: 0.8rem; }
+
+  /* PRINCIPLE */
+  .principle { padding: 7rem 2rem; text-align: center; background: var(--cream-dark); }
+  .principle-quote { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 300; font-style: italic; color: var(--charcoal); max-width: 800px; margin: 0 auto 2rem; line-height: 1.3; }
+  .principle-quote strong { font-style: normal; font-weight: 600; color: var(--flame); }
+  .principle-sub { font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--warm-light); }
+
+  /* JOIN */
+  .join { background: var(--flame); padding: 7rem 2rem; text-align: center; }
+  .join-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 300; color: white; margin-bottom: 1.5rem; line-height: 1.1; }
+  .join-title em { font-style: italic; }
+  .join-sub { font-size: 1rem; color: rgba(255,255,255,0.8); margin-bottom: 1rem; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+  .join-note { font-size: 0.8rem; color: rgba(255,255,255,0.5); margin-bottom: 3rem; font-style: italic; }
+  .join-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+  /* FOOTER */
+  footer { background: var(--charcoal); padding: 4rem 2rem 2rem; text-align: center; }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; letter-spacing: 0.2em; color: var(--cream); margin-bottom: 0.5rem; }
+  .footer-logo span { color: var(--flame); }
+  .footer-tagline { font-size: 0.75rem; letter-spacing: 0.2em; color: var(--warm-mid); margin-bottom: 2.5rem; }
+  .footer-links { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem; }
+  .footer-links a { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--warm-mid); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--flame); }
+  .footer-divider { border: none; border-top: 0.5px solid rgba(255,255,255,0.08); margin-bottom: 2rem; }
+  .footer-principle { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-style: italic; color: rgba(255,248,242,0.3); margin-bottom: 1rem; }
+  .footer-copy { font-size: 0.7rem; color: rgba(255,248,242,0.2); letter-spacing: 0.1em; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes scrollPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .origin-inner, .legacy-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .step { grid-template-columns: 50px 1fr; gap: 1rem; }
+    .section, .origin, .pillars, .stack-section, .howto, .faq-section, .legacy, .mh-section, .principle, .join, .animals { padding: 4rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">C<span>O</span>NDUIT</a>
+  <ul class="nav-links">
+    <li><a href="#story">Story</a></li>
+    <li><a href="#pillars">For whom</a></li>
+    <li><a href="#howto">How to</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#stack">Stack</a></li>
+    <li><a href="#support">Support</a></li>
+  </ul>
+  <a href="https://github.com/guilderbeast/flamenco-win11-blender5-setup" target="_blank" class="nav-cta">GitHub</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="50" cy="50" r="46" fill="none" stroke="#E8521A" stroke-width="2.5"/>
+    <path d="M18 50 Q34 28 50 50 Q66 72 82 50" fill="none" stroke="#E8521A" stroke-width="3" stroke-linecap="round"/>
+    <path d="M18 50 Q34 72 50 50 Q66 28 82 50" fill="none" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+    <circle cx="50" cy="50" r="4.5" fill="#E8521A"/>
+  </svg>
+  <p class="hero-eyebrow">Born from struggle. Built for everyone.</p>
+  <h1 class="hero-title">Every story.<br><em>Every voice.</em><br>Every mind.</h1>
+  <p class="hero-tagline">An open platform connecting human creativity and AI — for everyone, by everyone.</p>
+  <p class="hero-principle"><strong>Free at point of authorship.</strong> &nbsp;·&nbsp; Always. No exceptions.</p>
+  <div class="hero-actions">
+    <a href="https://github.com/guilderbeast/flamenco-win11-blender5-setup" target="_blank" class="btn-primary">Join the movement</a>
+    <a href="#story" class="btn-secondary">Read the story</a>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ORIGIN STORY -->
+<section class="origin" id="story">
+  <div class="origin-inner">
+    <div>
+      <p class="section-label">The origin</p>
+      <div class="flame-line"></div>
+      <blockquote class="origin-quote">"I was signed off work with depression and anxiety. My ADHD brain wouldn't stop. And from that dark, difficult place came something I believe can change the world."</blockquote>
+      <p class="origin-attribution">— Richard Guilder, founder of Conduit</p>
+    </div>
+    <div class="origin-body">
+      <p>Conduit was not born in a boardroom or a university lab. It was born during the long, difficult days of a mental health crisis — when Richard Guilder, 48 years old, newly diagnosed with ADHD, signed off work with depression and anxiety, and found that the only thing keeping him going was building.</p>
+      <p>Richard has no formal training in computer science. No degree. No institutional backing. Completely self-taught — and that is not a caveat. It is the point. Because what he built, from a bedroom, in two days, while fighting his own mind, is the proof that the walls we build around who gets to create technology are entirely artificial.</p>
+      <p>What started as a personal project — connecting two computers to render Blender animations faster — became something far larger. Through two days of relentless problem-solving, debugging undocumented Windows 11 Pro firewall issues, fighting configuration files that reset themselves, and refusing to give up — a working AI-controlled render farm came to life.</p>
+      <p>And in that moment of exhausted triumph, a question arrived: <strong>what if this technology could do something that actually matters?</strong> What if a child with no technical knowledge could type a story and watch it become an animation? What if a person who is deaf or mute could have their thoughts translated into real speech? What if the walls between human imagination and human expression could simply be removed?</p>
+      <p><strong>That is Conduit. Not a product. Not a startup. A movement.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- THE HUMAN BEHIND IT -->
+<section class="section">
+  <p class="section-label">The human behind it</p>
+  <div class="flame-line"></div>
+  <h2 class="section-title">48. Self-taught. ADHD.<br><em>Completely unqualified.</em><br>And that is exactly the point.</h2>
+
+  <p class="section-body">Richard Guilder has no computer science degree. No formal training. He taught himself everything — and he built Conduit's foundation at 48 years old while navigating a depression and anxiety diagnosis alongside a new ADHD diagnosis that finally explained a lifetime of thinking differently.</p>
+
+  <div class="mh-callout">
+    <p>"I couldn't stop my brain. Even in the depths of it — especially in the depths of it. The ADHD that makes everyday tasks feel impossible is the exact same thing that made me sit for two days straight building something I believed in completely. Conduit came from that place. From the dark. And it is full of light."</p>
+    <span>— Richard Guilder</span>
+  </div>
+
+  <p class="section-body">Mental health conditions, neurodivergence, a lack of formal credentials — these are not disqualifications. They are different ways of seeing. Richard's story is proof that the most important question is never "are you qualified?" It is always "do you believe it's possible?"</p>
+
+  <p class="section-body">If you are struggling right now — with your mind, with your sense of purpose, with the feeling that you have something inside you that the world won't let out — <strong>Conduit was built by someone who understands that feeling completely.</strong> Please see the support section below. You are not alone.</p>
+</section>
+
+<!-- RICHARD'S ANIMALS -->
+<section class="animals">
+  <div class="animals-inner">
+    <p class="section-label">The team</p>
+    <div class="flame-line"></div>
+    <h2 class="section-title">Every founder needs<br>a <em>support network.</em></h2>
+    <p class="section-body" style="max-width:720px;">Richard built Conduit with the unconditional support of the most important members of his household. They kept him company through the long sessions, the frustrations, and the breakthroughs. They deserve to be here.</p>
+    <div class="animals-grid">
+      <div class="animal-card">
+        <div class="animal-emoji">🐕</div>
+        <div class="animal-name">Willow</div>
+        <div class="animal-type">Mastiff · Chief of Security</div>
+      </div>
+      <div class="animal-card">
+        <div class="animal-emoji">🐈</div>
+        <div class="animal-name">Brandy</div>
+        <div class="animal-type">Cat · Senior Advisor</div>
+      </div>
+      <div class="animal-card">
+        <div class="animal-emoji">🐈</div>
+        <div class="animal-name">Bailey</div>
+        <div class="animal-type">Cat · Quality Control</div>
+      </div>
+      <div class="animal-card">
+        <div class="animal-emoji">🐹</div>
+        <div class="animal-name">Mercedes</div>
+        <div class="animal-type">Guinea Pig · Head of Morale</div>
+      </div>
+      <div class="animal-card">
+        <div class="animal-emoji">🐹</div>
+        <div class="animal-name">Teddy</div>
+        <div class="animal-type">Guinea Pig · Deputy Morale</div>
+      </div>
+      <div class="animal-card">
+        <div class="animal-emoji">🐰</div>
+        <div class="animal-name">Herschey</div>
+        <div class="animal-type">Rabbit · Chief Inspiration Officer</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THREE PILLARS -->
+<section class="pillars" id="pillars">
+  <div class="pillars-inner">
+    <p class="pillars-label">Who it's for</p>
+    <h2 class="pillars-title">Built for the ones the world<br><em>forgot to build for.</em></h2>
+    <div class="pillars-grid">
+      <div class="pillar">
+        <div class="pillar-number">01</div>
+        <h3 class="pillar-title">The child with a story to tell</h3>
+        <p class="pillar-body">A child types "a dragon who is afraid of fire makes a friend with a knight." Conduit writes the script, builds the scene in Blender, renders it across the farm, and returns a finished animation. No technical knowledge. No money. Just imagination — and a conduit to make it real. In a school in rural Africa, in a community centre with no budget, on a tablet with a donated SIM card.</p>
+        <span class="pillar-tag">Story → Animation</span>
+      </div>
+      <div class="pillar">
+        <div class="pillar-number">02</div>
+        <h3 class="pillar-title">The voice waiting to be heard</h3>
+        <p class="pillar-body">For those who are deaf, mute, or non-verbal — Conduit provides a real-time passage from thought to speech. Not preset phrases. Not a symbol board. Real, nuanced, individual expression — learned for each person, refined over time. Current AAC devices give people a phrase book. Conduit gives them a language. A fundamental human right, finally within reach of everyone.</p>
+        <span class="pillar-tag">Thought → Speech</span>
+      </div>
+      <div class="pillar">
+        <div class="pillar-number">03</div>
+        <h3 class="pillar-title">The builder who believes in open</h3>
+        <p class="pillar-body">Every line of code is open source. LLM agnostic — run Claude, Llama, Mistral or any local model. Render engine agnostic. Platform agnostic. No vendor lock-in anywhere in the stack. No single company controls it. No investor can buy it and put it behind a paywall. Build on it. Fork it. Improve it. Make it yours. That is how it stays free — forever.</p>
+        <span class="pillar-tag">Open Source Forever</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW TO GET STARTED -->
+<section class="howto" id="howto">
+  <p class="section-label">Get started</p>
+  <div class="flame-line"></div>
+  <h2 class="section-title">How to set up your<br><em>Conduit render farm</em></h2>
+  <p class="section-body">The full guide below covers everything from scratch. If you get stuck, the <a href="https://github.com/guilderbeast/flamenco-win11-blender5-setup" target="_blank">GitHub repo</a> has pre-configured files that do most of the hard work for you.</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-number">01</div>
+      <div class="step-content">
+        <h3>Download and install Blender</h3>
+        <p>Go to <a href="https://blender.org/download" target="_blank">blender.org/download</a> and download the same version on both machines. The versions must match exactly — Flamenco will not work across different Blender versions. At the time of writing, Blender 5.1 is current.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">02</div>
+      <div class="step-content">
+        <h3>Download Flamenco</h3>
+        <p>Go to <a href="https://flamenco.blender.org/download" target="_blank">flamenco.blender.org/download</a> and download Flamenco 3.9 for Windows. Extract it to <code>C:\BlenderFarm\flamenco-3.9-windows-amd64\</code> on both machines.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">03</div>
+      <div class="step-content">
+        <h3>Install Python</h3>
+        <p>Download Python from <a href="https://python.org/downloads" target="_blank">python.org/downloads</a>. During installation, tick <strong>"Add Python to PATH"</strong> — this is critical. Without it, Python won't work from the command line.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">04</div>
+      <div class="step-content">
+        <h3>Create the shared folder</h3>
+        <p>On your manager machine (the one that coordinates renders), create <code>C:\BlenderFarm\</code>. Right-click it, go to Properties → Sharing → Advanced Sharing, tick "Share this folder", name it BlenderFarm, and give your user full control permissions.</p>
+        <p>On your worker machine, map it as a network drive: open File Explorer, right-click This PC → Map network drive → enter <code>\\[MANAGER-IP]\BlenderFarm</code></p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">05</div>
+      <div class="step-content">
+        <h3>Copy the pre-configured yaml</h3>
+        <p>Download the pre-configured <a href="https://github.com/guilderbeast/flamenco-win11-blender5-setup/blob/main/config/flamenco-manager.yaml" target="_blank">flamenco-manager.yaml</a> from our GitHub repo. This fixes the two biggest Windows 11 Pro issues automatically — port 80 instead of 8080 (bypasses GPO firewall blocks) and 120 minute task timeouts (essential for complex scenes).</p>
+        <p>Edit the Blender path to match your version, then place it in <code>C:\BlenderFarm\flamenco-3.9-windows-amd64\</code></p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">06</div>
+      <div class="step-content">
+        <h3>Fix the Blender addon for Blender 5.1</h3>
+        <p>Blender 5.1 uses a new extensions system that requires a manifest file the Flamenco addon doesn't include. Download our <a href="https://github.com/guilderbeast/flamenco-win11-blender5-setup/blob/main/config/blender_manifest.toml" target="_blank">blender_manifest.toml</a> and place it in:</p>
+        <p><code>C:\Users\[USERNAME]\AppData\Roaming\Blender Foundation\Blender\5.1\extensions\user_default\flamenco\</code></p>
+        <p>Then download the addon from your running Flamenco Manager dashboard (top right → add-on link) and extract its contents into the same folder.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">07</div>
+      <div class="step-content">
+        <h3>Start the Manager and Workers</h3>
+        <p>Use the startup scripts from the repo. Download <a href="https://github.com/guilderbeast/flamenco-win11-blender5-setup/blob/main/start-manager.bat" target="_blank">start-manager.bat</a> and run it on the manager machine first. Then download <a href="https://github.com/guilderbeast/flamenco-win11-blender5-setup/blob/main/start-worker.bat" target="_blank">start-worker.bat</a>, edit the IP address inside it, and run it on both machines.</p>
+        <p>Open <code>http://[MANAGER-IP]</code> in a browser — you should see the Flamenco dashboard with both workers showing as Awake.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">08</div>
+      <div class="step-content">
+        <h3>Set up auto-start on boot</h3>
+        <p>Press Win+R, type <code>shell:startup</code>, and place shortcuts to your startup scripts there. Both machines will now automatically launch their Flamenco roles every time Windows starts — no manual CMD windows needed. Blender does not need to be open; workers launch it headlessly when there is work to do.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">09</div>
+      <div class="step-content">
+        <h3>Submit your first render</h3>
+        <p>In Blender, go to Output Properties → Flamenco section. Set the Manager URL to <code>http://[MANAGER-IP]</code>. Save your .blend file to <code>C:\BlenderFarm\</code> with no spaces in the filename. Hit Refresh from Manager, select Simple Blender Render as the job type, and click Submit to Flamenco.</p>
+        <p>Watch both machines pick up tasks in the dashboard. Your render farm is running.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">10</div>
+      <div class="step-content">
+        <h3>Install Blender MCP (optional but incredible)</h3>
+        <p>Blender MCP connects Claude AI directly to Blender so you can control your scenes through conversation. Visit the <a href="https://github.com/ahujasid/blender-mcp" target="_blank">Blender MCP GitHub repo</a> for installation instructions. Once running, you can ask Claude to create objects, modify scenes, set up lighting and more — all without touching Blender's interface.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="faq-inner">
+    <p class="section-label">Frequently asked questions</p>
+    <div class="flame-line"></div>
+    <h2 class="section-title">Everything you need<br><em>to know.</em></h2>
+
+    <div class="faq-grid">
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <h3>Is Conduit free?</h3>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p><strong>Yes. Completely and unconditionally free.</strong> Free at point of authorship — now, always, without exception. This is a founding principle, not a marketing claim. No freemium tier. No premium features. No subscription. No paywall of any kind, ever. The moment a paywall appears on Conduit, it has failed in its mission.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <h3>Is it open source?</h3>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p><strong>Yes. Every single component.</strong> Conduit is built entirely on open source technology — Blender, Flamenco, Mosquitto, Ollama, and more. The Conduit code itself is MIT licensed. Fork it, modify it, build on it, deploy it yourself. No restrictions. The source is on <a href="https://github.com/guilderbeast/flamenco-win11-blender5-setup" target="_blank">GitHub</a> right now.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <h3>Do I need a powerful computer?</h3>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Conduit was built and tested on two ordinary consumer Windows 11 laptops and desktops with Nvidia RTX GPUs. You do not need a workstation or a server. Any modern machine capable of running Blender can participate in the render farm. For those without suitable hardware, we are building a sponsored cloud option that will be free to use.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <h3>Do I need technical knowledge?</h3>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>The current setup requires some comfort with Windows and following step-by-step instructions. Richard — who built this — has no formal computer science training and is entirely self-taught. The documentation is written to be as clear as possible. As Conduit develops, the goal is a one-click installer that requires no technical knowledge whatsoever.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <h3>What is Blender MCP?</h3>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>MCP stands for Model Context Protocol. It is a way of connecting AI tools like Claude directly to applications on your computer. With Blender MCP installed, you can have a conversation with Claude and watch Blender respond in real time — creating objects, modifying scenes, setting up lighting and materials through natural language. Visit the <a href="https://github.com/ahujasid/blender-mcp" target="_blank">Blender MCP GitHub repo</a> to install it.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <h3>What is Flamenco?</h3>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Flamenco is the official open source render manager from the Blender Foundation. It coordinates rendering across multiple machines — one acts as the Manager (the brain), and all machines including the manager run a Worker (doing the actual rendering). It is free, open source, and designed specifically for Blender. Learn more at <a href="https://flamenco.blender.org" target="_blank">flamenco.blender.org</a>.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <h3>Which AI models does it work with?</h3>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Conduit is designed to be LLM agnostic — it works with any AI model. You can use Claude via Anthropic's API, GPT via OpenAI, or run a completely local model like Llama 3 or Mistral via <a href="https://ollama.com" target="_blank">Ollama</a>. Running a local model means no data leaves your machine and there are no ongoing API costs — truly free and private.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <h3>Does it work on Mac or Linux?</h3>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Flamenco officially supports Windows, Mac and Linux. The current Conduit documentation and pre-configured files focus on Windows 11 Pro because that is where the most undocumented problems exist. Blender and Mosquitto both run on Mac and Linux natively. Mac and Linux guides are planned.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <h3>How can I contribute?</h3>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Star the <a href="https://github.com/guilderbeast/flamenco-win11-blender5-setup" target="_blank">GitHub repo</a>. Share it. Submit a pull request. Write documentation. Report bugs. Translate guides. Test on hardware we don't have. Advocate for it in accessibility, education or open source communities. No contribution is too small. You do not need to be a developer to help — writers, designers, educators and advocates are just as important as coders.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <h3>Who built this and why?</h3>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Richard Guilder, 48, self-taught, no formal computer science training. Built during a period of depression, anxiety and an ADHD diagnosis. The technology started as a personal render farm project and became something bigger when the question arrived: what if this could give every child a way to tell their story, and every person without a voice a way to speak? Read the full story above.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <h3>Will it always stay free?</h3>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p><strong>Yes.</strong> This is non-negotiable and written into Conduit's founding principle. Conduit will be governed as a non-profit foundation. Sponsors donate compute, not control. No sponsor, investor or company will ever have the power to put any part of Conduit behind a paywall. If that ever changed, the open source licence means anyone could fork it and continue the free version. The free nature of Conduit is protected by its architecture, not just its promises.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE STACK -->
+<section class="stack-section" id="stack">
+  <div class="stack-inner">
+    <p class="section-label">The technology</p>
+    <div class="flame-line"></div>
+    <h2 class="section-title">100% open source.<br><em>Zero vendor lock-in.</em></h2>
+    <p class="section-body">Every component runs locally, privately, and for free. Click any link below to visit the project directly.</p>
+    <div class="stack-grid">
+      <div class="stack-item">
+        <div class="stack-icon">🎨</div>
+        <h3 class="stack-name">Blender</h3>
+        <p class="stack-desc">The world's most powerful open source 3D creation suite. Free, forever.</p>
+        <a href="https://blender.org" target="_blank" class="stack-link">blender.org</a>
+        <br><span class="stack-badge">Open Source</span>
+      </div>
+      <div class="stack-item">
+        <div class="stack-icon">⚡</div>
+        <h3 class="stack-name">Flamenco</h3>
+        <p class="stack-desc">Official Blender Foundation render manager. Distributes frames across any number of machines.</p>
+        <a href="https://flamenco.blender.org" target="_blank" class="stack-link">flamenco.blender.org</a>
+        <br><span class="stack-badge">Open Source</span>
+      </div>
+      <div class="stack-item">
+        <div class="stack-icon">🤖</div>
+        <h3 class="stack-name">Blender MCP</h3>
+        <p class="stack-desc">Connects Claude AI directly to Blender. Control your 3D scene through conversation.</p>
+        <a href="https://github.com/ahujasid/blender-mcp" target="_blank" class="stack-link">github.com/ahujasid/blender-mcp</a>
+        <br><span class="stack-badge">Open Source</span>
+      </div>
+      <div class="stack-item">
+        <div class="stack-icon">📡</div>
+        <h3 class="stack-name">Mosquitto</h3>
+        <p class="stack-desc">Lightweight open source MQTT broker. Powers live render farm telemetry and AI monitoring.</p>
+        <a href="https://mosquitto.org" target="_blank" class="stack-link">mosquitto.org</a>
+        <br><span class="stack-badge">Open Source</span>
+      </div>
+      <div class="stack-item">
+        <div class="stack-icon">🧠</div>
+        <h3 class="stack-name">Ollama</h3>
+        <p class="stack-desc">Run large language models locally. No API costs, no data leaving your machine. True AI sovereignty.</p>
+        <a href="https://ollama.com" target="_blank" class="stack-link">ollama.com</a>
+        <br><span class="stack-badge">Open Source</span>
+      </div>
+      <div class="stack-item">
+        <div class="stack-icon">🔥</div>
+        <h3 class="stack-name">Conduit on GitHub</h3>
+        <p class="stack-desc">All pre-configured files, startup scripts, guides and documentation. Free to use, fork, and build on.</p>
+        <a href="https://github.com/guilderbeast/flamenco-win11-blender5-setup" target="_blank" class="stack-link">github.com/guilderbeast</a>
+        <br><span class="stack-badge">MIT Licensed</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT ALREADY EXISTS -->
+<section class="legacy">
+  <p class="section-label">What already exists</p>
+  <div class="flame-line"></div>
+  <div class="legacy-grid">
+    <div>
+      <h2 class="section-title">In two days, from a bedroom,<br><em>this already works.</em></h2>
+      <p class="section-body">Conduit is not vaporware. The foundation is built, tested, documented and published. Two Windows 11 Pro machines running Blender 5.1, coordinated by Flamenco 3.9, monitored via MQTT, with Claude AI connected directly to Blender through MCP — working together, right now, today.</p>
+      <p class="section-body">A 300-frame WWII airfield animation — Stukas, Hurricanes, a Junkers Ju 52, an entire scene with hundreds of objects — rendered across two consumer machines in under seven hours. The same render would have taken sixteen hours on one machine.</p>
+      <p class="section-body"><strong>The complete setup guide, pre-configured files and startup scripts are already published on GitHub, free for anyone in the world to use.</strong></p>
+      <br>
+      <a href="https://github.com/guilderbeast/flamenco-win11-blender5-setup" target="_blank" class="btn-primary">See the proof on GitHub</a>
+    </div>
+    <div>
+      <div class="legacy-stat"><div class="legacy-stat-number">300</div><div class="legacy-stat-label">Frames rendered across two machines</div></div>
+      <div class="legacy-stat"><div class="legacy-stat-number">2×</div><div class="legacy-stat-label">Render speed — day one, two machines</div></div>
+      <div class="legacy-stat"><div class="legacy-stat-number">100%</div><div class="legacy-stat-label">Open source. Every single component.</div></div>
+      <div class="legacy-stat"><div class="legacy-stat-number">£0</div><div class="legacy-stat-label">Cost to use. Now and always.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MENTAL HEALTH SUPPORT -->
+<section class="mh-section" id="support">
+  <div class="mh-inner">
+    <p class="pillars-label">You are not alone</p>
+    <h2 class="mh-title">If you are struggling,<br><em>please reach out.</em></h2>
+    <p class="mh-body">Conduit was born from a mental health crisis. Richard knows what it is to feel that the darkness won't lift — and he also knows that it does. If you are struggling with depression, anxiety, thoughts of suicide, or simply feel overwhelmed, please contact one of the services below. <strong>You matter. Your story matters. You deserve to be here.</strong></p>
+
+    <div class="mh-grid">
+      <div class="mh-card">
+        <div class="mh-card-country">United Kingdom</div>
+        <div class="mh-card-name">Samaritans</div>
+        <div class="mh-card-number">116 123</div>
+        <p class="mh-card-desc">Free, 24/7, confidential support for anyone in distress.</p>
+        <a href="https://samaritans.org" target="_blank">samaritans.org</a>
+      </div>
+      <div class="mh-card">
+        <div class="mh-card-country">United Kingdom</div>
+        <div class="mh-card-name">Mind</div>
+        <div class="mh-card-number">0300 123 3393</div>
+        <p class="mh-card-desc">Mental health support, advice and information.</p>
+        <a href="https://mind.org.uk" target="_blank">mind.org.uk</a>
+      </div>
+      <div class="mh-card">
+        <div class="mh-card-country">United Kingdom</div>
+        <div class="mh-card-name">Crisis Text Line UK</div>
+        <div class="mh-card-number">Text SHOUT to 85258</div>
+        <p class="mh-card-desc">Free, 24/7 crisis support via text message.</p>
+        <a href="https://giveusashout.org" target="_blank">giveusashout.org</a>
+      </div>
+      <div class="mh-card">
+        <div class="mh-card-country">United States</div>
+        <div class="mh-card-name">988 Suicide & Crisis Lifeline</div>
+        <div class="mh-card-number">988</div>
+        <p class="mh-card-desc">Call or text 988 anytime, 24/7. Free and confidential.</p>
+        <a href="https://988lifeline.org" target="_blank">988lifeline.org</a>
+      </div>
+      <div class="mh-card">
+        <div class="mh-card-country">International</div>
+        <div class="mh-card-name">International Association for Suicide Prevention</div>
+        <div class="mh-card-number">Crisis centre directory</div>
+        <p class="mh-card-desc">Find a crisis centre in your country.</p>
+        <a href="https://www.iasp.info/resources/Crisis_Centres/" target="_blank">iasp.info/resources</a>
+      </div>
+      <div class="mh-card">
+        <div class="mh-card-country">ADHD Support</div>
+        <div class="mh-card-name">ADHD UK</div>
+        <div class="mh-card-number">Information & community</div>
+        <p class="mh-card-desc">Support, information and community for people with ADHD.</p>
+        <a href="https://adhduk.co.uk" target="_blank">adhduk.co.uk</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRINCIPLE -->
+<section class="principle">
+  <div class="flame-line flame-line-center"></div>
+  <p class="principle-quote">"The moment you put a paywall on assistive technology or creative tools for children, you have decided that only <strong>some people</strong> deserve access. We reject that. Completely. Irrevocably. Forever."</p>
+  <p class="principle-sub">— The Conduit Founding Principle, 2026</p>
+</section>
+
+<!-- JOIN -->
+<section class="join" id="join">
+  <h2 class="join-title">Be part of<br><em>something that lasts.</em></h2>
+  <p class="join-sub">Conduit is at the very beginning. We need developers, designers, accessibility advocates, educators, animators, speech therapists, and people who simply believe that every human being deserves a voice.</p>
+  <p class="join-note">No experience necessary. No contribution too small. This is a human project, built by humans, for humans.</p>
+  <div class="join-actions">
+    <a href="https://github.com/guilderbeast/flamenco-win11-blender5-setup" target="_blank" class="btn-white">Star on GitHub</a>
+    <a href="https://github.com/guilderbeast/flamenco-win11-blender5-setup" target="_blank" class="btn-ghost-white">Read the docs</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">C<span>O</span>NDUIT</div>
+  <p class="footer-tagline">everyone. by everyone. for everyone.</p>
+  <div class="footer-links">
+    <a href="https://github.com/guilderbeast/flamenco-win11-blender5-setup" target="_blank">GitHub</a>
+    <a href="https://blender.org" target="_blank">Blender</a>
+    <a href="https://flamenco.blender.org" target="_blank">Flamenco</a>
+    <a href="https://github.com/ahujasid/blender-mcp" target="_blank">Blender MCP</a>
+    <a href="https://mosquitto.org" target="_blank">Mosquitto</a>
+    <a href="https://ollama.com" target="_blank">Ollama</a>
+    <a href="#story">The story</a>
+    <a href="#howto">How to</a>
+    <a href="#faq">FAQ</a>
+    <a href="#support">Mental health support</a>
+  </div>
+  <hr class="footer-divider">
+  <p class="footer-principle">"Free at point of authorship. Always. No exceptions."</p>
+  <p class="footer-copy">Conduit is open source, MIT licensed. Born from struggle. Built for everyone. &copy; 2026 Richard Guilder. With love from Willow, Brandy, Bailey, Mercedes, Teddy and Herschey.</p>
+</footer>
+
+<script>
+function toggleFaq(btn) {
+  const answer = btn.nextElementSibling;
+  const icon = btn.querySelector('.faq-icon');
+  const isOpen = answer.classList.contains('open');
+  document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+  document.querySelectorAll('.faq-icon').forEach(i => i.classList.remove('open'));
+  if (!isOpen) {
+    answer.classList.add('open');
+    icon.classList.add('open');
+  }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,2 @@
+2026-05-09T08:26:54+01:00 Task assigned to worker carly (1ba8dbfe-db52-47fc-870b-6a4dbb1e39bc)
+2026-05-09T08:26:54+01:00 task changed status queued -> active

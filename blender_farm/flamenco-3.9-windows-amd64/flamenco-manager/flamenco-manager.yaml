@@ -1,0 +1,45 @@
+# Configuration file for Flamenco.
+# Written for Flamenco 3.9 - Guilded Conduit Core Framework
+
+_meta:
+  version: 3
+manager_name: Flamenco
+database: flamenco-manager.sqlite
+database_check_period: 10m0s
+listen: :8080
+autodiscoverable: true
+local_manager_storage_path: C:\guilded-conduit-core\blender_farm\flamenco-manager-storage
+shared_storage_path: C:\guilded-conduit-core\blender_farm
+
+shaman:
+  enabled: false
+  garbageCollect:
+    period: 24h0m0s
+    maxAge: 744h0m0s
+task_timeout: 120m0s
+worker_timeout: 10m0s
+blocklist_threshold: 3
+task_fail_after_softfail_count: 3
+
+mqtt:
+  client:
+    enabled: true
+    broker: "tcp://192.168.0.178:1883"
+    clientID: flamenco
+    topic_prefix: flamenco
+    username: ""
+    password: ""
+
+variables:
+  blender:
+    values:
+    - platform: linux
+      value: C:\Program Files\Blender Foundation\Blender 5.1\blender.exe
+    - platform: windows
+      value: C:\Program Files\Blender Foundation\Blender 5.1\blender.exe
+    - platform: darwin
+      value: C:\Program Files\Blender Foundation\Blender 5.1\blender.exe
+  blenderArgs:
+    values:
+    - platform: all
+      value: -b -y

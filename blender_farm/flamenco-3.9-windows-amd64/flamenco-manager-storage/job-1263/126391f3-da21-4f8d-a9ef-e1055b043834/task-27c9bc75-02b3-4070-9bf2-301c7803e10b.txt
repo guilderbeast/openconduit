@@ -1,0 +1,15 @@
+2026-05-08T17:08:19+01:00 Task assigned to worker carly (1ba8dbfe-db52-47fc-870b-6a4dbb1e39bc)
+2026-05-08T17:08:19+01:00 task changed status queued -> active
+going to run:
+
+    'C:\Program Files\Blender Foundation\Blender 5.1\blender.exe' -b -y 'flamenco attempt 1.blend' --scene Scene --python-expr 'import bpy; r = bpy.context.scene.render; r.use_file_extension = True; r.use_overwrite = False; r.use_placeholder = False' --render-output 'C:/Users/Rich/Documents/BlenderFarm/flamenco attempt 1/2026-05-08_170814/######' --render-format OPEN_EXR_MULTILAYER --render-frame 2
+
+pid=7896 > 00:00.750  reports          | ERROR Cannot read file "C:\BlenderFarm\flamenco-3.9-windows-amd64\flamenco attempt 1.blend": No such file or directory
+pid=7896 > Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+pid=7896 > BlenderMCP addon registered
+pid=7896 > BlenderMCP addon unregistered
+pid=7896 > 
+pid=7896 > Blender quit
+Failed: command exited abnormally with code 1
+2026-05-08T17:08:20+01:00 Task failed by worker carly (1ba8dbfe-db52-47fc-870b-6a4dbb1e39bc), Manager will fail the entire job as there are no more workers left for tasks of type "blender".
+2026-05-08T17:08:20+01:00 task changed status canceled -> failed

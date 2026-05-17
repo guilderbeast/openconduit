@@ -1,0 +1,9 @@
+# Flamenco Manager Configuration
+_version: 3
+manager_name: Flamenco Manager
+listen: 0.00.0.0:8080
+shared_storage_path: "C:\guilded-conduit-core\blender_farm"
+
+# Network Tracking Settings
+local_network_interfaces: []
+autodetect_local_network: true

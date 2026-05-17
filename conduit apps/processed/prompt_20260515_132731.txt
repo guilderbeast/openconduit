@@ -1,0 +1,1 @@
+Create a large desert rock formation using a distorted sphere, and apply a basic sandy-colored material to it.

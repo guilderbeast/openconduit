@@ -1,0 +1,13 @@
+2026-05-08T15:16:07+01:00 Task assigned to worker studiowin11 (4fcaf37b-6c2f-4959-809b-2f3ba7304111)
+2026-05-08T15:16:07+01:00 task changed status queued -> active
+going to run:
+
+    'C:\Program Files\Blender Foundation\Blender 5.1\blender.exe' -b -y 'flamenco attempt 1.blend' --scene Scene --python-expr 'import bpy; r = bpy.context.scene.render; r.use_file_extension = True; r.use_overwrite = False; r.use_placeholder = False' --render-output 'C:/Users/Rich/Documents/flamenco attempt 1/2026-05-08_151600/######' --render-format PNG --render-frame 1
+
+pid=7580 > 00:02.938  reports          | ERROR Cannot read file "C:\BlenderFarm\flamenco-3.9-windows-amd64\flamenco attempt 1.blend": No such file or directory
+pid=7580 > Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+pid=7580 > 
+pid=7580 > Blender quit
+Failed: command exited abnormally with code 1
+2026-05-08T15:16:11+01:00 Task failed by worker studiowin11 (4fcaf37b-6c2f-4959-809b-2f3ba7304111), Manager will fail the entire job as there are no more workers left for tasks of type "blender".
+2026-05-08T15:16:11+01:00 task changed status active -> failed

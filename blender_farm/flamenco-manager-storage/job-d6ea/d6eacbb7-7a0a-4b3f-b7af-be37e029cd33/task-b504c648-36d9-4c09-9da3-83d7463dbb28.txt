@@ -1,0 +1,22 @@
+2026-05-09T16:18:21+01:00 Task assigned to worker studiowin11 (4fcaf37b-6c2f-4959-809b-2f3ba7304111)
+2026-05-09T16:18:21+01:00 task changed status queued -> active
+going to run:
+
+    'C:\Program Files\Blender Foundation\Blender 5.1\blender.exe' -b -y cubist_play.blend --scene Scene --python-expr 'import bpy; r = bpy.context.scene.render; r.use_file_extension = True; r.use_overwrite = False; r.use_placeholder = False' --render-output 'C:/Program Files/Blender Foundation/Blender 5.1/cubist_play/2026-05-09_161202/######' --render-format PNG --render-frame 56
+
+pid=30432 > 00:00.266  blend            | Read blend: "C:\BlenderFarm\cubist_play.blend"
+pid=30432 > 00:00.266  render           | Rendering single frame
+pid=30432 > 00:00.266  render           | Rendering frame 56
+pid=30432 > 00:00.266  render           | Start rendering: Scene, ViewLayer
+pid=30432 > 00:00.266  render           | Engine: EEVEE
+pid=30432 > 00:00.750  render           | Fra: 56 | Rendering 1 / 64 samples
+pid=30432 > Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+pid=30432 > Scene switch for render: 'Scene' in file: 'C:\BlenderFarm\cubist_play.blend'
+pid=30432 > 00:00.812  render           | Fra: 56 | Rendering 25 / 64 samples
+pid=30432 > 00:00.875  render           | Fra: 56 | Rendering 50 / 64 samples
+pid=30432 > 00:00.906  render           | Fra: 56 | Rendering 64 / 64 samples
+pid=30432 > 00:01.094  render           | Saved: 'C:\Program Files\Blender Foundation\Blender 5.1\cubist_play\2026-05-09_161202\000056.png'
+pid=30432 > 00:01.094  render           | Time: 00:00.82 (Saving: 00:00.15)
+pid=30432 > 
+pid=30432 > Blender quit
+2026-05-09T16:18:23+01:00 task changed status active -> completed

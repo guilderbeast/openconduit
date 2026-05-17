@@ -1,0 +1,1 @@
+Create a 2m cube at the center of the scene.
