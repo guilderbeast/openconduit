@@ -1,8 +1,27 @@
-*.mp4 
+# ===================================================
+# OPEN CONDUIT FOUNDATION: MASTER REPOSITORY SHIELD
+# ===================================================
+
+# --- Existing System & Dependency Exclusions ---
 *.exe 
-*.sqlite 
-conduit apps/processed/ 
+*.mp4 
 pip/ 
 python/ 
 streamlit/ 
 streamlit)/ 
+conduit apps/processed/ 
+
+# --- V4 Flamenco Engine State & Database Shieling ---
+*.sqlite
+flamenco-manager.sqlite-shm
+flamenco-manager.sqlite-wal
+
+# --- Asset & Render Fallback Protection ---
+**/tmp/
+**/.tmp/
+*.exr
+*.png
+
+# --- Local Sovereign AI Cache Environment ---
+.ollama/
+**/local_app/logs/
