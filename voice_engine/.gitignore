@@ -1,0 +1,15 @@
+# Virtual Environment 
+venv/ 
+.venv/ 
+ 
+# Python Caches 
+__pycache__/ 
+*.pyc 
+ 
+# Generated Audio Files 
+output/ 
+*.wav 
+ 
+.vscode/ 
+.idea/ 
+Thumbs.db 
